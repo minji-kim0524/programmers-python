@@ -1,4 +1,13 @@
 # 인스턴스
+# - 인스턴스란 클래스에 의해 생성된 객체
+# - 클래스가 같더라도 각자 다른 값을 가질 수 있음
+
+# `is` 연산: 비교대상이 서로 같은 "인스턴스"인지 확인가능
+# `==` 연산: 비교대상이 같은 "값" 을 가지는지 확인가능
+# 예) list1 = list("hello")
+#    list2 = list("hello")
+#    print(list1 == list) # True
+#    print(list1 is list) # False
 
 numbers1 = []
 print(type(numbers1)) # <class 'list'>
