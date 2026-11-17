@@ -1,19 +1,15 @@
-import csv
+from fastapi import FastAPI, UploadFile, File
 
-results = {}
+app = FastAPI()
 
-with open('지출내역_데이터.csv', 'r', encoding='utf-8-sig') as file:
-    contents = csv.DictReader(file)
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
+    filename = file.filename
+    content = await file.read()
 
-    
-    for content in contents:
-        item = content['분류']
-        price = int(content['금액'])
-        
-        if item not in results:
-            results[item] = price
-        else:
-            results[item] += price
-
-    print(results)
-
+    if filename.endswith('.csv'):
+        return {"message": f"CSV file '{filename}' uploaded successfully.", "content_length": len(content)}
+    elif filename.endswith('.xlsx'):
+        return {"message": f"Excel file '{filename}' uploaded successfully.", "content_length": len(content)}
+    else:
+        return {"message": f"Unsupported file type for '{filename}'. Please upload a CSV or Excel file."}
